@@ -114,8 +114,8 @@ for yearNum in list(range(2015, 2017 + 1)):
             else:
                 newline = str(yearNum) + ";" + str(monthNum) + ";" + str(dayNum) + ";;;;no headache"
 
-            #if args.debug:
-                #print(newline)
+            if args.debug:
+                print(newline)
             outfile.write(newline + "\n")
 
             # stops if past the given stop-date
