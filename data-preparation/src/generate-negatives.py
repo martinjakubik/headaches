@@ -2,6 +2,7 @@ import sys
 import re
 import argparse
 from collections import namedtuple
+import datetime
 
 parser = argparse.ArgumentParser(description = "generates negative headache data from file of positives")
 parser.add_argument("-i", "--inputfile", dest="inputfile")
@@ -82,6 +83,10 @@ def weekdays(s):
     else:
         return "weekday"
 
+# sets up weekday names indexed monday = 0, tuesday = 1, ..., sunday = 6
+
+weekdayNames = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ]
+
 # defines a separator character
 sep = ";"
 
@@ -106,17 +111,51 @@ for yearNum in list(range(2015, 2017 + 1)):
 
                 if columnYear == yearNum and columnMonth == monthNum and columnDay == dayNum:
                     eventFound = True
-                    foundLine = line
+
+                    weekdayNum = datetime.date(columnYear, columnMonth, columnDay).weekday()
+                    columnWeekdayString = weekdayNames[ weekdayNum ]
+                    columnHour = columns[4]
+                    columnMinute = columns[5]
+                    columnPeriodOfDay = columns[6]
+                    columnComment = columns[7]
+                    columnIsHeadache = "1"
+
+                    foundLine = (str(columnYear) + sep +
+                                str(columnMonth) + sep +
+                                str(columnDay) + sep +
+                                str(weekdayNum) + sep +
+                                columnHour + sep +
+                                columnMinute + sep +
+                                columnPeriodOfDay + sep +
+                                columnComment + sep +
+                                columnWeekdayString + sep +
+                                columnIsHeadache)
                     break
 
             if eventFound == True:
-                newline = foundLine
+                newLine = foundLine
             else:
-                newline = str(yearNum) + ";" + str(monthNum) + ";" + str(dayNum) + ";;;;no headache"
+                newWeekday = datetime.date(yearNum, monthNum, dayNum).weekday()
+                columnWeekdayString = weekdayNames[ newWeekday ]
+                newHour = ""
+                newMinute = ""
+                newPeriodOfDay = ""
+                newComment = ""
+                newIsHeadache = "0"
+                newLine = (str(yearNum) + sep +
+                            str(monthNum) + sep +
+                            str(dayNum) + sep +
+                            str(newWeekday) + sep +
+                            newHour + sep +
+                            newMinute + sep +
+                            newPeriodOfDay + sep +
+                            newComment + sep +
+                            columnWeekdayString + sep +
+                            str(newIsHeadache))
 
             if args.debug:
-                print(newline)
-            outfile.write(newline + "\n")
+                print(newLine)
+            outfile.write(newLine + "\n")
 
             # stops if past the given stop-date
             if stopDateDefined == True:
