@@ -84,11 +84,15 @@ def weekdays(s):
         return "weekday"
 
 # sets up weekday names indexed monday = 0, tuesday = 1, ..., sunday = 6
-
 weekdayNames = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ]
 
+# cleans characters in comments
+def cleanComment(comment):
+    newComment = comment.replace(",", "<comma>")
+    return newComment
+
 # defines a separator character
-sep = ";"
+sep = ","
 
 stopLoop = False
 
@@ -117,7 +121,7 @@ for yearNum in list(range(2015, 2017 + 1)):
                     columnHour = columns[4]
                     columnMinute = columns[5]
                     columnPeriodOfDay = columns[6]
-                    columnComment = columns[7]
+                    columnComment = cleanComment(columns[7])
                     columnIsHeadache = "1"
 
                     foundLine = (str(columnYear) + sep +
