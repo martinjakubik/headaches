@@ -4,8 +4,9 @@ Gruntfile.js
 node_modules
 public
 
-./data-preparation/resources/data1.txt
-./data-preparation/resources/data1-formatted.txt
-./data-preparation/resources/data1-formatted-auto.txt
-./data-preparation/resources/data1-formatted-manually.txt
-./data-preparation/resources/data1-generated-negatives-auto.txt
+data-preparation/resources/what.txt
+data-preparation/resources/data1.txt
+data-preparation/resources/data1-formatted.txt
+data-preparation/resources/data1-formatted-auto.txt
+data-preparation/resources/data1-formatted-manually.txt
+data-preparation/resources/data1-generated-negatives-auto.txt
