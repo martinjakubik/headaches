@@ -91,6 +91,17 @@ def cleanComment(comment):
     newComment = comment.replace(",", "<comma>")
     return newComment
 
+# constructs a line
+def makeLine(columnYear, columnMonth, columnDay, weekdayNum, columnHour, columnMinute, columnPeriodOfDay, columnComment, columnWeekdayString, columnIsHeadache, sep):
+    constructedLine = (str(columnYear) + sep +
+                str(columnMonth) + sep +
+                str(columnDay) + sep +
+                str(weekdayNum) + sep +
+                columnPeriodOfDay + sep +
+                columnComment + sep +
+                columnIsHeadache)
+    return constructedLine
+
 # defines a separator character
 sep = ","
 
@@ -124,16 +135,7 @@ for yearNum in list(range(2015, 2017 + 1)):
                     columnComment = cleanComment(columns[7])
                     columnIsHeadache = "1"
 
-                    foundLine = (str(columnYear) + sep +
-                                str(columnMonth) + sep +
-                                str(columnDay) + sep +
-                                str(weekdayNum) + sep +
-                                columnHour + sep +
-                                columnMinute + sep +
-                                columnPeriodOfDay + sep +
-                                columnComment + sep +
-                                columnWeekdayString + sep +
-                                columnIsHeadache)
+                    foundLine = makeLine(columnYear, columnMonth, columnDay, weekdayNum, columnHour, columnMinute, columnPeriodOfDay, columnComment, columnWeekdayString, columnIsHeadache, sep)
                     break
 
             if eventFound == True:
@@ -146,16 +148,8 @@ for yearNum in list(range(2015, 2017 + 1)):
                 newPeriodOfDay = ""
                 newComment = ""
                 newIsHeadache = "0"
-                newLine = (str(yearNum) + sep +
-                            str(monthNum) + sep +
-                            str(dayNum) + sep +
-                            str(newWeekday) + sep +
-                            newHour + sep +
-                            newMinute + sep +
-                            newPeriodOfDay + sep +
-                            newComment + sep +
-                            columnWeekdayString + sep +
-                            str(newIsHeadache))
+
+                newLine = makeLine(yearNum, monthNum, dayNum, newWeekday, newHour, newMinute, newPeriodOfDay, newComment, columnWeekdayString, newIsHeadache, sep)
 
             if args.debug:
                 print(newLine)
