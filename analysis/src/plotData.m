@@ -6,13 +6,26 @@ figure; hold on;
 pos = find(y==1);
 neg = find(y==0);
 
-% plots the data
-plot(X(neg, 2), X(neg, 4), 'ko', 'MarkerSize', 2);
-plot(X(pos, 2), X(pos, 4), 'kx', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
+numWeekdays = sum(X(pos, 4) == (0:6));
 
+bar(numWeekdays);
 
 % sets the y-axis label
-ylabel('Day of the week');
+xlabel('Day of the week');
 
 % sets the x-axis label
-xlabel('Date');
+ylabel('Number of headaches');
+
+% opens a new figure window
+figure; hold on;
+
+numMonths = sum(X(pos, 2) == (1:12));
+
+bar(numMonths);
+
+% opens a new figure window
+figure; hold on;
+
+numMonthDays = sum(X(pos, 3) == (1:31));
+
+bar(numMonthDays);
